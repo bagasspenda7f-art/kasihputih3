@@ -69,22 +69,7 @@ const fullRows = DISPLAY.map(row => [
 const rowText = fullRows.map(tokens => tokens.map(t=>t[1]).join(''));
 // Perkiraan titik masuk frasa pada audio pengguna, dalam detik.
 // Bisa dikalibrasi dengan mengubah angka ini bila ada baris yang meleset.
-// Titik awal tiap frasa, dapat dikalibrasi per baris di browser.
-const DEFAULT_CUES = [6.45,12.05,18.75,24.65,35.45,41.15,48.45,55.05,61.55,66.8];
-const stored = (()=>{try{return JSON.parse(localStorage.getItem('kasihPutihCuesV2'))}catch{return null}})();
-const CUES = Array.isArray(stored)&&stored.length===DEFAULT_CUES.length&&stored.every(Number.isFinite) ? stored : [...DEFAULT_CUES];
-let tuneVisible=false;
-const tuneHud=document.createElement('div');
-tuneHud.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(20,13,26,.88);color:#ffd7e8;border:1px solid #ff8db066;border-radius:12px;padding:10px 15px;font:13px/1.5 monospace;z-index:9999;pointer-events:none;text-align:center;max-width:92vw;display:none';
-document.body.appendChild(tuneHud);
-function showTune(){tuneHud.style.display='block';tuneHud.textContent=`Kalibrasi ${active+1}/${CUES.length} • mulai ${CUES[active].toFixed(2)} dtk • , maju 0.25 dtk • . mundur 0.25 dtk • T sembunyikan • 0 reset`;}
-function saveTune(){try{localStorage.setItem('kasihPutihCuesV2',JSON.stringify(CUES))}catch{}}
-function tuneLine(delta){
-  CUES[active]=Math.max(0,Math.min(song.duration||74,CUES[active]+delta));
-  saveTune();tuneVisible=true;showTune();
-  // Segarkan animasi sesuai cue baru tanpa mengubah posisi audio.
-  typed=0;draw();
-}
+const CUES = [7.0,12.7,19.4,25.2,36.0,41.6,49.0,55.6,62.1,67.3];
 const song=document.getElementById('song');
 let active=0, typed=0, animation=0, running=false, finished=false, starting=false;
 const schedules=rowText.map((str,idx)=>{
@@ -127,7 +112,7 @@ function tick(){
   const t=song.currentTime;
   let idx=0;
   for(let i=0;i<CUES.length;i++)if(t>=CUES[i])idx=i;
-  if(idx!==active){active=idx;typed=0;draw();if(tuneVisible)showTune();}
+  if(idx!==active){active=idx;typed=0;draw();}
   // Timing tiap huruf mengacu langsung pada detik audio, bukan jam browser.
   const elapsed=Math.max(0,(t-CUES[active])*1000);
   const times=schedules[active];
@@ -157,14 +142,10 @@ function next(){
   if(!running){start();return;}
   if(active>=LIRIK.length-1)return;
   song.currentTime=CUES[active+1];
-  active++;typed=0;draw();if(tuneVisible)showTune();
+  active++;typed=0;draw();
 }
 document.addEventListener('keydown',e=>{
-  if(e.code==='Space'||e.key===' '){e.preventDefault();if(!e.repeat)next();return;}
-  if(e.key==='t'||e.key==='T'){tuneVisible=!tuneVisible;tuneHud.style.display=tuneVisible?'block':'none';if(tuneVisible)showTune();return;}
-  if(e.key===','||e.key==='<'){e.preventDefault();tuneLine(-0.25);return;}
-  if(e.key==='.'||e.key==='>'){e.preventDefault();tuneLine(0.25);return;}
-  if(e.key==='0'){CUES.splice(0,CUES.length,...DEFAULT_CUES);saveTune();tuneVisible=true;showTune();return;}
+  if(e.code==='Space'||e.key===' '){e.preventDefault();if(!e.repeat)next();}
 });
 // Seluruh layar bisa disentuh untuk mulai/lanjut, termasuk di HP.
 document.addEventListener('pointerdown',e=>{if(e.button===undefined||e.button===0)next();});
