@@ -1,0 +1,209 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kasih Putih — Music Sync Trend</title><style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#050609;color:#d5e2ee;font-family:Consolas,'Courier New',monospace;min-height:100vh}#snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}.stage{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px}.editor{width:min(950px,100%);min-height:460px;background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible}.code{padding:42px 22px 24px;min-height:340px;font-size:clamp(13px,2.4vw,23px);line-height:2.1;overflow-wrap:anywhere}.line{white-space:pre-wrap}.keyword{color:#d67cde}.name{color:#56c9dc}.method{color:#83b9ff}.string{color:#e4e86a}.punct{color:#cbd7e5}.cursor{display:inline-block;width:.16em;height:1.08em;margin-left:2px;vertical-align:-.2em;border-radius:8px;background:#ff83b6;box-shadow:0 0 9px #ff6fae,0 0 23px #ff5caa99;animation:heartCursor 1.25s ease-in-out infinite}.fresh{color:#ffc3df!important;text-shadow:0 0 7px #ff87bc,0 0 17px #ff78b966;animation:softAppear .8s ease-out both}@keyframes softAppear{from{opacity:.2;filter:blur(2px);transform:translateY(3px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}@keyframes heartCursor{0%,100%{opacity:1;transform:scaleY(1)}45%{opacity:.45;transform:scaleY(.7)}65%{opacity:1;transform:scaleY(1.1)}}@keyframes blink{50%{opacity:0}}@media(max-width:600px){.stage{padding:10px;align-items:center}.editor{min-height:350px}.code{padding:35px 14px;min-height:270px;line-height:1.85}}
+
+/* Spider-Man mungil bergelantungan di sisi kanan. */
+.spider-corner{position:fixed;right:clamp(5px,2.3vw,32px);top:0;width:clamp(78px,13vw,155px);height:clamp(205px,36vh,335px);z-index:2;pointer-events:none;overflow:visible;filter:drop-shadow(0 3px 9px rgba(0,0,0,.35))}
+.spider-swing{height:100%;width:100%;transform-origin:50% 0;animation:spider-swing 4.6s ease-in-out infinite}
+.spider-bob{animation:spider-bob 3.3s ease-in-out infinite}
+.spider-wave{transform-origin:73px 178px;animation:spider-wave 1.7s ease-in-out infinite}
+.spider-eye{fill:#fff;stroke:#111b31;stroke-width:2.5}
+@keyframes spider-swing{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(6deg)}}
+@keyframes spider-bob{0%,100%{transform:translateY(-3px)}50%{transform:translateY(9px)}}
+@keyframes spider-wave{0%,100%{transform:rotate(-13deg)}50%{transform:rotate(17deg)}}
+@media(max-width:600px){.spider-corner{right:2px;width:78px;height:210px;opacity:.94}.code{padding-right:35px}}
+
+.end-credit{display:none;margin:26px 0 0 22px;text-align:center;font-size:clamp(12px,1.7vw,17px);letter-spacing:.08em;color:#ffbedb;text-shadow:0 0 9px #ff77b777;animation:creditIn 1.4s ease both}
+.end-credit.show{display:block}
+.end-credit .by{display:block;margin-top:8px;color:#d7c4e8;font-size:.85em}
+@keyframes creditIn{from{opacity:0;transform:translateY(14px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+</style></head><body><canvas id="snow" aria-hidden="true"></canvas><aside class="spider-corner" aria-hidden="true"><svg class="spider-swing" viewBox="0 0 150 315" xmlns="http://www.w3.org/2000/svg"><g class="spider-bob">
+<!-- Benang jaring --> <path d="M75 -20 L75 106" fill="none" stroke="#d9e7f7" stroke-width="2" stroke-dasharray="4 3" opacity=".85"/>
+<!-- Sepatu dan kaki terbalik --> <path d="M58 138 Q43 120 45 105 L33 98 Q25 101 29 110 L44 119 Q40 146 61 158 Z" fill="#234c9e" stroke="#11172a" stroke-width="3"/><path d="M88 139 Q109 119 106 103 L117 98 Q125 104 120 111 L106 121 Q109 146 88 157 Z" fill="#234c9e" stroke="#11172a" stroke-width="3"/>
+<path d="M33 98 Q25 95 22 102 Q19 111 31 114 L45 108 L43 101Z" fill="#e33c42" stroke="#11172a" stroke-width="2"/><path d="M117 98 Q126 95 130 103 Q133 112 120 115 L106 109 L108 101Z" fill="#e33c42" stroke="#11172a" stroke-width="2"/>
+<!-- Badan --> <path d="M61 137 Q75 130 89 137 L94 171 Q75 184 56 171Z" fill="#d9343d" stroke="#11172a" stroke-width="3"/><path d="M56 159 Q48 164 51 181 L62 183 L66 166Z" fill="#2252a7"/><path d="M94 159 Q101 166 98 182 L87 183 L84 166Z" fill="#2252a7"/>
+<!-- Lambang laba-laba --> <g stroke="#10182b" stroke-width="1.7" fill="none"><path d="M75 152 L75 166 M71 155 L63 151 M79 155 L87 151 M71 159 L62 160 M79 159 L88 160 M71 163 L64 170 M79 163 L86 170"/></g><ellipse cx="75" cy="158" rx="3" ry="5" fill="#10182b"/>
+<!-- Lengan kiri --> <path d="M58 166 Q41 166 34 183 L42 192 Q53 180 63 181Z" fill="#d9343d" stroke="#11172a" stroke-width="3"/><circle cx="39" cy="191" r="8" fill="#d9343d" stroke="#11172a" stroke-width="2"/>
+<!-- Lengan kanan melambai --> <g class="spider-wave"><path d="M91 166 Q110 163 115 148 L126 151 Q123 178 95 183Z" fill="#d9343d" stroke="#11172a" stroke-width="3"/><path d="M116 150 Q113 140 119 138 L122 146 Q124 135 130 139 L129 148 Q136 140 139 145 L134 154 Q142 151 143 157 Q139 167 125 163Z" fill="#d9343d" stroke="#11172a" stroke-width="2"/></g>
+<!-- Kepala terbalik --> <path d="M75 176 C53 176 47 195 50 211 Q54 231 75 233 Q96 231 100 211 C103 195 97 176 75 176Z" fill="#df303b" stroke="#11172a" stroke-width="3"/>
+<!-- Garis jaring topeng --> <g fill="none" stroke="#77242e" stroke-width="1.2" opacity=".8"><path d="M75 177 L75 232 M61 180 Q72 200 65 228 M89 180 Q78 200 85 228 M51 201 Q75 193 99 201 M50 211 Q75 203 100 211 M56 223 Q75 214 94 223"/></g>
+<!-- Mata besar lucu --> <path class="spider-eye" d="M56 202 Q62 194 72 204 Q70 214 58 214Z"/><path class="spider-eye" d="M94 202 Q88 194 78 204 Q80 214 92 214Z"/>
+</g></svg></aside><audio id="song" preload="auto" src="kasih-putih.mp3"></audio><main class="stage"><div class="editor"><div class="code" id="code" aria-live="off"></div><div class="end-credit" id="endCredit">Kasih Putih - Glenn Fredly<span class="by">@Gaxzzebra</span></div></div></main><script>
+// Lirik bagian yang terlihat pada screenshot pengguna.
+const LIRIK = [
+  {prefix:"me.",method:"feel",text:"Biarkanlah kurasakan"},
+  {prefix:"you.",method:"give",text:"Hangatnya sentuhan kasihmu"},
+  {prefix:"heart.",method:"need",text:"Bawa daku, penuhiku"},
+  {prefix:"love.",method:"stay",text:"Berilah diriku kasih putih di hatiku, oh-ho"},
+  {prefix:"me.",method:"feel",text:"(Biarkanlah kurasakan)"},
+  {prefix:"you.",method:"give",text:"(Hangatnya sentuhan kasihmu)"},
+  {prefix:"heart.",method:"need",text:"Bawa daku, penuhiku"},
+  {prefix:"love.",method:"stay",text:"Bawalah daku (berilah diriku)"},
+  {prefix:"heart.",method:"hold",text:"kasih putih di hatiku"},
+  {prefix:"life.",method:"find",text:"(Kutemukan arti hidupku) denganmu"}
+];
+// Mode manual: tidak ada timing otomatis. Satu tekan Spasi = satu baris baru.
+const code = document.getElementById('code');
+const endCredit = document.getElementById('endCredit');
+// Versi visual: vokal panjang ditulis lebih lama seperti nada yang ditahan.
+// Teks lagu asli tetap ada di LIRIK; hanya tampilan typing yang dimodifikasi.
+// Setiap baris punya pemanjangan suku kata sendiri. Bisa disesuaikan dengan vokal.
+const PANJANG_NADA = {
+  0: 'Biarkanlaaah kurasaaakaaann',
+  1: 'Hangatnya sentuuhaaannn kaasiiihh muuu',
+  2: 'Bawaaa dakuuu, penuuhiiikuuu',
+  3: 'Berilaaah dirikuuu kasih putiiih di hatikuuu, oooh-hooo',
+  4: '(Biarkanlaaah kurasaaakaaann)',
+  5: '(Hangatnya sentuuhaaannn kaasiiihh muuu)',
+  6: 'Bawaaa dakuuu, penuuhiiikuuu',
+  7: 'Bawalaaah dakuuu (berilaaah dirikuuu)',
+  8: 'kasih putiiih di hatikuuu',
+  9: '(Kutemukaaann arti hidupkuuu) dengaanmuuu'
+};
+// Target lama mengetik per baris (ms); ini pendekatan musikal, bukan timestamp vokal presisi.
+const LINE_DURATION = [3600, 4800, 3800, 6200, 3800, 5000, 3800, 4600, 3500, 5200];
+const DISPLAY = LIRIK.map((row,i)=>({...row,text:PANJANG_NADA[i] || row.text}));
+const fullRows = DISPLAY.map(row => [
+  ['keyword','  '], ['name',row.prefix], ['method',row.method],
+  ['punct','('], ['string','"'+row.text+'"'], ['punct',')']
+]);
+const rowText = fullRows.map(tokens => tokens.map(t=>t[1]).join(''));
+// Perkiraan titik masuk frasa pada audio pengguna, dalam detik.
+// Bisa dikalibrasi dengan mengubah angka ini bila ada baris yang meleset.
+// Titik awal tiap frasa, dapat dikalibrasi per baris di browser.
+const DEFAULT_CUES = [6.45,12.05,18.75,24.65,35.45,41.15,48.45,55.05,61.55,66.8];
+const stored = (()=>{try{return JSON.parse(localStorage.getItem('kasihPutihCuesV2'))}catch{return null}})();
+const CUES = Array.isArray(stored)&&stored.length===DEFAULT_CUES.length&&stored.every(Number.isFinite) ? stored : [...DEFAULT_CUES];
+let tuneVisible=false;
+const tuneHud=document.createElement('div');
+tuneHud.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(20,13,26,.88);color:#ffd7e8;border:1px solid #ff8db066;border-radius:12px;padding:10px 15px;font:13px/1.5 monospace;z-index:9999;pointer-events:none;text-align:center;max-width:92vw;display:none';
+document.body.appendChild(tuneHud);
+function showTune(){tuneHud.style.display='block';tuneHud.textContent=`Kalibrasi ${active+1}/${CUES.length} • mulai ${CUES[active].toFixed(2)} dtk • , maju 0.25 dtk • . mundur 0.25 dtk • T sembunyikan • 0 reset`;}
+function saveTune(){try{localStorage.setItem('kasihPutihCuesV2',JSON.stringify(CUES))}catch{}}
+function tuneLine(delta){
+  CUES[active]=Math.max(0,Math.min(song.duration||74,CUES[active]+delta));
+  saveTune();tuneVisible=true;showTune();
+  // Segarkan animasi sesuai cue baru tanpa mengubah posisi audio.
+  typed=0;draw();
+}
+const song=document.getElementById('song');
+let active=0, typed=0, animation=0, running=false, finished=false, starting=false;
+const schedules=rowText.map((str,idx)=>{
+  const weights=[...str].map((ch,i)=>{
+    const prev=str[i-1]||'';
+    const inLyric=i>str.indexOf('"') && i<str.lastIndexOf('"');
+    if(!inLyric)return .25;
+    if(ch===' ')return .35;
+    if(/[,()]/.test(ch))return 1.4;
+    if(/[aiueo]/i.test(ch)&&ch.toLowerCase()===prev.toLowerCase())return 3.3;
+    if(/[aiueo]/i.test(ch))return 1.3;
+    return .8;
+  });
+  const total=weights.reduce((a,b)=>a+b,0);
+  let elapsed=0;
+  return weights.map(w=>(elapsed+=w/total*LINE_DURATION[idx]));
+});
+function draw(){
+  code.replaceChildren();
+  for(let i=0;i<=active;i++){
+    const line=document.createElement('div');line.className='line';
+    let remaining=i===active?typed:rowText[i].length;
+    for(const [cls,token] of fullRows[i]){
+      if(remaining<=0)break;
+      const span=document.createElement('span');span.className=cls;
+      span.textContent=token.slice(0,remaining);
+      remaining-=span.textContent.length;line.appendChild(span);
+    }
+    if(i===active&&typed>0){
+      const spans=[...line.querySelectorAll('span')];const last=spans.at(-1);
+      if(last&&last.textContent){const txt=last.textContent;last.textContent=txt.slice(0,-1);
+        const fresh=document.createElement('span');fresh.className='fresh';fresh.textContent=txt.slice(-1);last.after(fresh);}
+    }
+    if(i===active){const cursor=document.createElement('span');cursor.className='cursor';line.appendChild(cursor);}
+    code.appendChild(line);
+  }
+}
+function tick(){
+  if(!running)return;
+  const t=song.currentTime;
+  let idx=0;
+  for(let i=0;i<CUES.length;i++)if(t>=CUES[i])idx=i;
+  if(idx!==active){active=idx;typed=0;draw();if(tuneVisible)showTune();}
+  // Timing tiap huruf mengacu langsung pada detik audio, bukan jam browser.
+  const elapsed=Math.max(0,(t-CUES[active])*1000);
+  const times=schedules[active];
+  let count=0;while(count<times.length&&elapsed>=times[count])count++;
+  if(count!==typed){typed=count;draw();}
+  if(active===LIRIK.length-1&&typed===times.length&&!finished){
+    finished=true;endCredit.classList.add('show');
+  }
+  animation=requestAnimationFrame(tick);
+}
+async function start(){
+  if(running||starting)return;
+  starting=true;finished=false;
+  try{
+    song.currentTime=CUES[0];
+    await song.play();
+    running=true;active=0;typed=0;endCredit.classList.remove('show');draw();
+    cancelAnimationFrame(animation);animation=requestAnimationFrame(tick);
+  }catch(err){
+    // Pesan hanya ditampilkan jika browser benar-benar gagal memutar audio.
+    const msg=document.createElement('div');msg.style.cssText='color:#ffc1da;font-size:14px;margin-top:18px';
+    msg.textContent='Audio tidak bisa diputar. Pastikan kasih-putih.mp3 ada di folder yang sama dengan index.html, lalu ketuk layar atau tekan Spasi.';
+    code.appendChild(msg);
+  }finally{starting=false;}
+}
+function next(){
+  if(!running){start();return;}
+  if(active>=LIRIK.length-1)return;
+  song.currentTime=CUES[active+1];
+  active++;typed=0;draw();if(tuneVisible)showTune();
+}
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'||e.key===' '){e.preventDefault();if(!e.repeat)next();return;}
+  if(e.key==='t'||e.key==='T'){tuneVisible=!tuneVisible;tuneHud.style.display=tuneVisible?'block':'none';if(tuneVisible)showTune();return;}
+  if(e.key===','||e.key==='<'){e.preventDefault();tuneLine(-0.25);return;}
+  if(e.key==='.'||e.key==='>'){e.preventDefault();tuneLine(0.25);return;}
+  if(e.key==='0'){CUES.splice(0,CUES.length,...DEFAULT_CUES);saveTune();tuneVisible=true;showTune();return;}
+});
+// Seluruh layar bisa disentuh untuk mulai/lanjut, termasuk di HP.
+document.addEventListener('pointerdown',e=>{if(e.button===undefined||e.button===0)next();});
+song.addEventListener('ended',()=>{running=false;cancelAnimationFrame(animation);endCredit.classList.add('show');});
+song.addEventListener('error',()=>{console.error('Gagal memuat kasih-putih.mp3',song.error);});
+draw();
+// Salju lembut di latar belakang; tidak mengganggu tombol Spasi.
+const snowCanvas = document.getElementById('snow');
+const snowCtx = snowCanvas.getContext('2d');
+let flakes = [], snowWidth = 0, snowHeight = 0, lastSnowTime = 0;
+function resizeSnow(){
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  snowWidth = window.innerWidth; snowHeight = window.innerHeight;
+  snowCanvas.width = Math.round(snowWidth * dpr);
+  snowCanvas.height = Math.round(snowHeight * dpr);
+  snowCtx.setTransform(dpr,0,0,dpr,0,0);
+  const count = Math.min(125, Math.max(35, Math.round(snowWidth * snowHeight / 11500)));
+  flakes = Array.from({length:count},()=>({
+    x:Math.random()*snowWidth,y:Math.random()*snowHeight,
+    r:0.8+Math.random()*2.2,speed:12+Math.random()*32,
+    sway:4+Math.random()*15,phase:Math.random()*Math.PI*2,
+    alpha:.22+Math.random()*.55
+  }));
+}
+function animateSnow(now){
+  const dt=Math.min((now-lastSnowTime)/1000 || 0,.05);lastSnowTime=now;
+  snowCtx.clearRect(0,0,snowWidth,snowHeight);
+  for(const f of flakes){
+    f.y+=f.speed*dt;
+    f.x+=Math.sin(now*.0007+f.phase)*f.sway*dt;
+    if(f.y>snowHeight+5){f.y=-5;f.x=Math.random()*snowWidth;}
+    if(f.x>snowWidth+5)f.x=-5;
+    if(f.x< -5)f.x=snowWidth+5;
+    snowCtx.beginPath();snowCtx.arc(f.x,f.y,f.r,0,Math.PI*2);
+    snowCtx.fillStyle=`rgba(232,244,255,${f.alpha})`;snowCtx.fill();
+  }
+  requestAnimationFrame(animateSnow);
+}
+window.addEventListener('resize',resizeSnow);
+resizeSnow();requestAnimationFrame(animateSnow);
+
+</script></body></html>
